@@ -1,0 +1,114 @@
+{
+  "passed": 10,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Timeline Lead menggabungkan seluruh aktivitas secara kronologis",
+      "name": "test_tscheck_lead_timeline_events.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Created a lead, assigned an officer, changed status, added a note, opened a WhatsApp template, then GET /admin/leads/{id}/timeline -> 200 with all 5 event_types present (created/assignment/status/note/whatsapp), events sorted newest-first by created_at, note/whatsapp descriptions and actor_name populated."
+    },
+    {
+      "criterion": "Timeline Lead menggabungkan seluruh aktivitas secara kronologis",
+      "name": "lead-timeline-chronological",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Super admin opened a fresh lead's timeline dialog after a status change + note; timeline-event-list showed 3 articles (Lead dibuat, Status diperbarui, Catatan petugas) with the status update rendered first (newest) and lead-creation last (oldest). Screenshot captured."
+    },
+    {
+      "criterion": "Catatan lama dan audit assignment/status muncul dalam timeline",
+      "name": "test_tscheck_lead_timeline_events.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Same test as above confirms audit_logs entries for lead_assigned/lead_status_updated and lead_notes documents are both merged into the /timeline response alongside communication_events, none dropped."
+    },
+    {
+      "criterion": "Empat template WhatsApp tersedia dari kartu lead",
+      "name": "test_tscheck_whatsapp_templates.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /admin/leads/{id}/whatsapp for greeting/documents/visit/final_follow_up all -> 201, each message contains the lead's name and all four messages are distinct (set length 4)."
+    },
+    {
+      "criterion": "Empat template WhatsApp tersedia dari kartu lead",
+      "name": "whatsapp-template-actions-recorded",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Opened timeline dialog for a fresh lead; all four whatsapp-template-{greeting,documents,visit,final_follow_up} buttons rendered and visible. Screenshot 'four-templates-visible'."
+    },
+    {
+      "criterion": "Aksi WhatsApp membuka tautan siap kirim",
+      "name": "test_tscheck_whatsapp_templates.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Each response's url startswith 'https://wa.me/62' (normalized Indonesian number) and url-decoding the ?text= query param reproduces the exact message field."
+    },
+    {
+      "criterion": "Aksi WhatsApp membuka tautan siap kirim",
+      "name": "whatsapp-template-actions-recorded",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Clicking whatsapp-template-greeting opened a real browser popup (window.open flow) that navigated to a wa.me URL containing '62'; asserted via popup.url() polling with expect().toPass()."
+    },
+    {
+      "criterion": "Klik WhatsApp tercatat dalam timeline dan audit",
+      "name": "test_tscheck_whatsapp_templates.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /admin/audit?action=whatsapp_opened filtered to the test lead's entity_id returned exactly 4 entries (one per template) each with a non-empty actor_name and details.template matching the template used."
+    },
+    {
+      "criterion": "Klik WhatsApp tercatat dalam timeline dan audit",
+      "name": "whatsapp-template-actions-recorded",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "After the click, timeline-event-list showed 'Pesan WhatsApp dibuka' without reopening the dialog (live query invalidation); cross-checked via GET /api/admin/leads/{id}/timeline (whatsapp event present, description includes lead name) and GET /api/admin/audit?action=whatsapp_opened (entry present for this lead)."
+    },
+    {
+      "criterion": "RBAC timeline dan komunikasi aman",
+      "name": "test_tscheck_timeline_whatsapp_rbac.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Lead assigned to a fixture officer; GET /timeline and POST /whatsapp both -> 403 for an unrelated PPDB officer, content editor, and agenda manager; super admin (unassigned) -> 200 / 201. Fixture officer deleted at end."
+    },
+    {
+      "criterion": "RBAC timeline dan komunikasi aman",
+      "name": "admin-editor-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran existing check (regression): Editor role's nav omits 'Leads' entirely (where the Timeline & komunikasi panel lives) and direct fetch('/api/admin/leads') returns 403 from the browser session."
+    },
+    {
+      "criterion": "Fitur leads sebelumnya tidak regresi",
+      "name": "admin-leads-duplicate-badge",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: duplicate badge and duplicate-history panel still render correctly for a freshly created duplicate lead cluster."
+    },
+    {
+      "criterion": "Fitur leads sebelumnya tidak regresi",
+      "name": "admin-lead-notes-followup",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: PPDB officer note creation with next-action date still persists across dialog close/reopen."
+    },
+    {
+      "criterion": "Fitur leads sebelumnya tidak regresi",
+      "name": "full backend suite",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "python -m pytest -q across all 22 test_tscheck_*.py files (35 tests total incl. the 3 new ones) -> 35 passed, 0 failed."
+    },
+    {
+      "criterion": "Status Resend ditampilkan jujur",
+      "name": "admin-report-dashboard-simulation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: Laporan Mingguan page still shows the 'Simulasi' badge, dummy recipient/sender, and 'Jalankan simulasi' produces a new history row — delivery_mode stays 'simulated' throughout, matching the disclosed MOCKED status (no real Resend key/verified sender/recipient provided)."
+    }
+  ]
+}
