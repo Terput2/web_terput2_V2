@@ -1,0 +1,100 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Nomor WhatsApp berulang tetap disimpan dan ditandai duplikat",
+      "name": "test_tscheck_lead_duplicates.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /leads twice with same phone -> both 201; second lead's duplicate_ids=[first.id]; GET /admin/leads?scope=all shows duplicate_count computed both ways (addToSet propagated back to first lead); GET /admin/leads/{id}/duplicates returns both ids."
+    },
+    {
+      "criterion": "Nomor WhatsApp berulang tetap disimpan dan ditandai duplikat",
+      "name": "admin-leads-duplicate-badge",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Created 20 leads sharing one phone via /api/leads; logged in as super admin, opened Pendaftar & Kontak, duplicate badge 'Duplikat N' visible on the lead card, opening 'Catatan & riwayat' showed the Riwayat nomor yang sama history panel. 2 screenshots."
+    },
+    {
+      "criterion": "Peringatan SLA mengikuti batas 24 dan 48 jam",
+      "name": "test_tscheck_lead_sla.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /admin/leads?scope=all -> seeded lead age>=48h status=new has sla_level=critical; freshly created lead has age_hours=0/sla_level=ok; after PATCH status=follow_up on the fresh lead, sla_level stays ok even though it would otherwise age (gate is status=='new')."
+    },
+    {
+      "criterion": "Peringatan SLA mengikuti batas 24 dan 48 jam",
+      "name": "admin-lead-sla-warning-badge",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Read-only lookup of the seeded 49h-old lead (status new) via /api/admin/leads?scope=all, rendered lead-sla-{id} badge visible reading 'Lewat 48 jam'; a lead created moments earlier shows no lead-sla-{id} badge at all (count 0)."
+    },
+    {
+      "criterion": "Petugas dapat menyimpan catatan tindak lanjut",
+      "name": "test_tscheck_lead_notes.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PPDB officer POST /admin/leads/{id}/notes -> 201 with author_name='Petugas PPDB', next_action_date='2026-03-02', created_at set; fresh GET /admin/leads/{id}/notes (different session) returns the same text/author, proving persistence across a re-read."
+    },
+    {
+      "criterion": "Petugas dapat menyimpan catatan tindak lanjut",
+      "name": "admin-lead-notes-followup",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Logged in as Petugas PPDB, opened Catatan & riwayat on a fresh lead, submitted a note with next-action date; note text, 'Petugas PPDB' author and 'Tindak lanjut: 2026-03-10' rendered; closed and reopened the dialog and the note was still present. 2 screenshots."
+    },
+    {
+      "criterion": "Hak akses catatan tetap aman",
+      "name": "test_tscheck_lead_notes_rbac.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Lead assigned to a newly created (tscheck-) officer; an unrelated PPDB officer gets 403 on POST notes and an empty list (not the private notes) on GET; content_editor and agenda_manager get 403 on POST (GET notes also 403 for editor); super admin and the assigned officer succeed (201). Fixture officer account deleted at the end."
+    },
+    {
+      "criterion": "Dashboard laporan mingguan menampilkan ringkasan 7 hari",
+      "name": "admin-report-dashboard-simulation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Super admin opened Laporan Mingguan: heading, 'Simulasi' badge, 3 preview metrics, and schedule card containing 'Senin'/'07.00' all visible. Clicking 'Jalankan simulasi' grew the Riwayat laporan list and showed a success toast. 2 screenshots."
+    },
+    {
+      "criterion": "Simulasi laporan dapat dijalankan dan diaudit",
+      "name": "test_tscheck_report_simulation.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /admin/reports/run -> 201 {status:'simulated', trigger:'manual', delivery_mode:'simulated'}; GET /admin/reports lists the run in runs[] with preview keys (total/overdue/duplicates/top_major/busiest_officer) and schedule text; GET /admin/audit?action=report_simulated includes an entry for the run."
+    },
+    {
+      "criterion": "Simulasi laporan dapat dijalankan dan diaudit",
+      "name": "admin-report-dashboard-simulation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Same check as the dashboard criterion above: simulation button click produced a new row in Riwayat laporan (count assertion via toPass) and a success toast, confirming the simulated run is both runnable and visible."
+    },
+    {
+      "criterion": "Scheduler laporan aman terhadap duplikasi",
+      "name": "test_tscheck_report_scheduler.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "next_report_time() returns a tz-aware Monday 07:00:00 in the future relative to Asia/Jakarta 'now'; GET /admin/reports runs[] grouped by schedule_key for trigger=='scheduled' shows no key with more than one run (report_scheduler's find_one-before-insert guard for the cron path)."
+    },
+    {
+      "criterion": "Akses laporan dibatasi dan fitur lama tidak regresi",
+      "name": "test_tscheck_report_access.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /admin/reports and POST /admin/reports/run both -> 403 for ppdb_officer, content_editor, and agenda_manager sessions; only super_admin (covered by test_tscheck_report_simulation.py) succeeds."
+    },
+    {
+      "criterion": "Akses laporan dibatasi dan fitur lama tidak regresi",
+      "name": "admin-report-access-restricted",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PPDB officer and Editor nav sidebars omit 'Laporan Mingguan' (admin-nav-reports count 0) while their own sections (leads/news) remain visible; direct fetch to /api/admin/reports returns 403 for both roles even outside the UI. Regression re-check: admin-login-flow and admin-excel-export-download re-ran and passed unchanged."
+    }
+  ]
+}

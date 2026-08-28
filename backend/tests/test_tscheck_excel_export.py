@@ -38,9 +38,10 @@ def test_export_has_two_sheets_and_respects_filter(client):
     assert workbook.sheetnames == ["Data Leads", "Ringkasan"]
 
     data_sheet = workbook["Data Leads"]
-    ids_in_sheet = [row[0] for row in data_sheet.iter_rows(min_row=2, values_only=True)]
+    # rows 1-3 are a merged banner (school name / address / template+timestamp), row 4 is the header
+    ids_in_sheet = [row[0] for row in data_sheet.iter_rows(min_row=5, values_only=True)]
     assert lead_id in ids_in_sheet, "created ppdb lead must appear in filtered export"
-    kinds_in_sheet = {row[1] for row in data_sheet.iter_rows(min_row=2, values_only=True)}
+    kinds_in_sheet = {row[1] for row in data_sheet.iter_rows(min_row=5, values_only=True)}
     assert kinds_in_sheet <= {"ppdb"}, "kind=ppdb filter must exclude contact leads"
 
     summary_sheet = workbook["Ringkasan"]
