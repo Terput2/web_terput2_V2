@@ -20,10 +20,11 @@ def test_export_has_two_sheets_and_respects_filter(client):
     cookies = login(client, SUPER_ADMIN)
     suffix = uuid.uuid4().hex[:8]
     unique_name = f"tscheck-export-{suffix}"
+    unique_phone = f"0812{int(suffix, 16) % 100000000:08d}"
 
     create_resp = client.post(
         "/leads",
-        json={"kind": "ppdb", "name": unique_name, "phone": "081200000000", "major": "RPL"},
+        json={"kind": "ppdb", "name": unique_name, "phone": unique_phone, "major": "RPL"},
     )
     assert create_resp.status_code == 201, create_resp.text
     lead_id = create_resp.json()["id"]

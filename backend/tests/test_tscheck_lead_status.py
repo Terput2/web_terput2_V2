@@ -8,9 +8,10 @@ ADMIN_PASSWORD = "TerataiAdmin2026!"
 def test_lead_status_transitions_persist(client):
     suffix = uuid.uuid4().hex[:8]
     name = f"tscheck-status-{suffix}"
+    phone = f"0812{int(suffix, 16) % 100000000:08d}"
     create_resp = client.post(
         "/leads",
-        json={"kind": "contact", "name": name, "phone": "081200000000", "question": "tscheck"},
+        json={"kind": "contact", "name": name, "phone": phone, "question": "tscheck"},
     )
     assert create_resp.status_code == 201, create_resp.text
     lead_id = create_resp.json()["id"]

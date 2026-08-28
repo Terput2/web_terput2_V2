@@ -1,0 +1,141 @@
+{
+  "passed": 18,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "test_debt",
+      "severity": "low",
+      "detail": "tests/test_tscheck_lead_status.py and tests/test_tscheck_excel_export.py create fixture leads with a static phone number (081200000000) instead of a unique-per-run phone, so every backend suite run permanently grows that number's duplicate_count in the shared DB. This slowly pollutes the 'Prioritas SLA & duplikat' panel's top-12 ranking (already at duplicate_count=21 after this session's reruns). Not a bug in the feature under test today, but should be fixed by giving those two files unique phone numbers per run to stop the unbounded residue growth."
+    }
+  ],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Super Admin dapat mengedit empat template WhatsApp tetap",
+      "name": "test_tscheck_whatsapp_template_edit.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PATCH /admin/whatsapp-templates/visit with new content -> 200, response has non-empty updated_by/updated_at; a fresh GET /admin/whatsapp-templates (simulated refresh) reflects the same content and updated_by; GET /admin/audit?action=whatsapp_template_updated contains an entry for entity_id='visit'. Reset endpoint used at the end to restore the seeded default."
+    },
+    {
+      "criterion": "Super Admin dapat mengedit empat template WhatsApp tetap",
+      "name": "template-editor-superadmin-persists",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Super admin opened Template WhatsApp panel, all 4 template-card-{greeting,documents,visit,final_follow_up} visible; edited 'visit' textarea, saved (toast confirmed), then page.reload() (simulating a fresh page load) showed the same new content and 'Terakhir oleh' stamp still present; Default button afterwards restored original content. Screenshots captured for save/persist/reset."
+    },
+    {
+      "criterion": "Template dapat dinonaktifkan dan dipulihkan",
+      "name": "test_tscheck_whatsapp_template_toggle.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PATCH .../documents {is_active:false} -> 200; POST /admin/leads/{id}/whatsapp with template=documents while inactive -> 422 'Template WhatsApp tidak aktif'; POST .../documents/reset -> 200 with is_active=true and content restored to the exact seeded default string; the same whatsapp action afterwards -> 201."
+    },
+    {
+      "criterion": "Variabel template aman dan tersubstitusi",
+      "name": "test_tscheck_whatsapp_template_variables.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PATCH greeting content with {nama}/{jurusan}/{petugas}/{sekolah} -> 200; POST whatsapp action -> 201 with message containing the lead's real name, major, actor name and school name, no leftover {placeholder} tokens; PATCH with an unsupported {kode_promo} placeholder -> 422 and template content confirmed unchanged afterwards via GET. Reset used to restore default."
+    },
+    {
+      "criterion": "Hak akses template sesuai role",
+      "name": "test_tscheck_whatsapp_template_rbac.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PPDB officer: GET /admin/whatsapp-templates -> 200 (can read), PATCH/reset -> 403 (cannot edit). Content editor & agenda manager: GET/PATCH -> 403 (no leads access at all). Super admin: GET -> 200, PATCH -> 200, reset -> 200."
+    },
+    {
+      "criterion": "Timeline mendukung multi-filter jenis aktivitas",
+      "name": "test_tscheck_timeline_multi_filter.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Lead given a status change, a note and a whatsapp action. GET .../timeline?types=note,whatsapp -> exactly {note,whatsapp} event_types (2 events); GET .../timeline?types=created,status -> exactly {created,status}; newest-first ordering preserved within the filtered set."
+    },
+    {
+      "criterion": "Timeline mendukung multi-filter jenis aktivitas",
+      "name": "timeline-filter-combination-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Opened timeline workspace dialog for a fixture lead with created+note+whatsapp events (3 articles with all filters on); toggled off 'Dibuat' -> 2 articles remain, 'Lead dibuat' text gone; re-enabled 'Dibuat' and toggled off 'Catatan' -> 2 articles (created+whatsapp), 'Catatan petugas' gone while 'Lead dibuat' still shown. Screenshots for each combination."
+    },
+    {
+      "criterion": "Timeline mendukung filter periode",
+      "name": "test_tscheck_timeline_period_filter.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET .../timeline?days=7|30|90 all -> 200 with the fresh lead's created+note events present and newest-first; days=15 -> 422; a custom start/end date range spanning today includes the events; a custom range 390-400 days in the past returns an empty list, confirming created_at-based filtering without breaking ordering."
+    },
+    {
+      "criterion": "Ringkasan kontak tampil langsung di kartu lead",
+      "name": "contact-summary-card-updates-live",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Fresh lead's contact-summary-{id} card showed 'Lead dibuat' as last activity right after creation; after posting a note with next_action_date=2026-12-01 via API and reloading, the same card updated to 'Catatan petugas', showed the actor 'Admin Sekolah' and the next_action_date 2026-12-01 — confirming the card reflects status/assignment/note/whatsapp changes."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "full backend suite",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "python -m pytest -q across all test_tscheck_*.py (27 files) -> 41 passed, 0 failed, includes RBAC, notes, duplicates, SLA, exports, CMS, agenda categories, staff accounts, report scheduler/simulation."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "whatsapp-template-actions-recorded",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Updated the check (LeadTimelinePanel/timeline-dialog testids were retired in favour of LeadTimelineWorkspace/timeline-workspace-dialog after the new features shipped) and re-verified: 4 workspace-template-* buttons visible, clicking greeting opens a real wa.me popup with '62' prefix, 'Pesan WhatsApp dibuka' appears in the timeline, and GET /admin/audit?action=whatsapp_opened + GET timeline both confirm the entry server-side."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "lead-timeline-chronological",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Updated for the new LeadTimelineWorkspace testids; re-verified newest-first ordering (status update first, lead-creation last) for a fixture lead with created+status+note events."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-leads-duplicate-badge",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Bumped fixture batch size 20->60 duplicates so this run's duplicate_count keeps ranking inside the 'Prioritas SLA & duplikat' top-12 despite slow residue growth from unrelated tests (see action_items); re-verified duplicate badge + duplicate-history panel render correctly."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-lead-notes-followup",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Same batch-size fix applied; re-verified PPDB officer note creation with next-action date persists across dialog close/reopen."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-editor-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: editor nav omits Leads entirely; direct fetch('/api/admin/leads') -> 403."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-ppdb-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: PPDB officer nav/filters behave as before."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-agenda-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: agenda manager nav/editor restrictions intact."
+    },
+    {
+      "criterion": "Fitur komunikasi sebelumnya tidak regresi",
+      "name": "admin-report-dashboard-simulation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran unchanged: Laporan Mingguan still shows 'Simulasi' badge, dummy recipient/sender, delivery_mode stays 'simulated' (Resend remains MOCKED as disclosed)."
+    }
+  ]
+}
