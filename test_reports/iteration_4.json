@@ -1,0 +1,199 @@
+{
+  "passed": 32,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Super Admin dapat mengelola beberapa akun staf",
+      "name": "test_tscheck_staff_accounts.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /admin/users -> 201 (role content_editor); PATCH /admin/users/{id} role+is_active+password -> 200; new password logs in; DELETE /admin/users/{id} -> 200 and absent from GET /admin/users. DELETE own account -> 400; content_editor GET /admin/users -> 403."
+    },
+    {
+      "criterion": "Super Admin dapat mengelola beberapa akun staf",
+      "name": "admin-staff-management",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Logged in as super admin, opened Akun Staf, created tscheck staff (content_editor), edited role to Pengelola Agenda (persisted in grid), then deleted the account (removed from grid). 4 screenshots."
+    },
+    {
+      "criterion": "Hak akses Editor Konten dibatasi sesuai peran",
+      "name": "test_tscheck_role_access_editor.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Editor GET /admin/content/{news,gallery,major} -> 200 each; GET /admin/content/agenda -> 403; GET /admin/leads -> 403; GET /admin/users -> 403; POST /admin/content agenda -> 403."
+    },
+    {
+      "criterion": "Hak akses Editor Konten dibatasi sesuai peran",
+      "name": "admin-editor-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Editor nav shows only news/gallery/major (leads/agenda/users absent); fetch() from browser session confirmed 403 for /api/admin/leads, /api/admin/content/agenda, /api/admin/users."
+    },
+    {
+      "criterion": "Hak akses Petugas PPDB dibatasi sesuai peran",
+      "name": "test_tscheck_role_access_ppdb.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PPDB officer GET /admin/leads -> 200, filtered by kind/status/date range -> 200 with matching rows; GET /admin/content/{news,agenda,gallery,major} -> 403 each; GET /admin/users -> 403."
+    },
+    {
+      "criterion": "Hak akses Petugas PPDB dibatasi sesuai peran",
+      "name": "admin-ppdb-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PPDB nav shows only leads; jenis/status filters applied on admin-leads-list; fetch() confirmed 403 for /api/admin/content/news and /api/admin/users."
+    },
+    {
+      "criterion": "Ekspor Excel mengikuti filter dan memiliki dua sheet",
+      "name": "test_tscheck_excel_export.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /admin/leads/export.xlsx?kind=ppdb -> 200 xlsx with sheets ['Data Leads','Ringkasan']; created tscheck-export lead id present in Data Leads and excluded contact-kind rows; Ringkasan 'Total data' equals row count. Editor and Agenda Manager GET export.xlsx -> 403."
+    },
+    {
+      "criterion": "Ekspor Excel mengikuti filter dan memiliki dua sheet",
+      "name": "admin-excel-export-download",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Super admin set jenis=PPDB filter, clicked Unduh Excel, browser download event fired with .xlsx suggested filename."
+    },
+    {
+      "criterion": "Hak akses Pengelola Agenda dibatasi sesuai peran",
+      "name": "test_tscheck_role_access_agenda.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Agenda manager GET/POST/DELETE /admin/content/agenda -> 200/201/200; GET /admin/content/{news,gallery,major} -> 403 each; GET /admin/leads -> 403; GET /admin/users -> 403."
+    },
+    {
+      "criterion": "Hak akses Pengelola Agenda dibatasi sesuai peran",
+      "name": "admin-agenda-role-restricted-ui",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Agenda manager nav shows only agenda; content editor for agenda opens with category select; fetch() confirmed 403 for /api/admin/leads, /api/admin/users, /api/admin/content/news."
+    },
+    {
+      "criterion": "Agenda mendukung lima kategori tetap",
+      "name": "test_tscheck_agenda_categories.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Created one agenda item per category (akademik/ujian/kegiatan/industri/pengumuman) via POST /admin/content -> 201 each; GET /content/agenda (public) returned each id with matching category; invalid category value -> 422."
+    },
+    {
+      "criterion": "Agenda mendukung lima kategori tetap",
+      "name": "admin-agenda-category-select",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Created tscheck agenda item selecting 'Industri' category in admin editor; card rendered 'Industri' label; item deleted afterward."
+    },
+    {
+      "criterion": "Kalender publik membedakan kategori secara visual",
+      "name": "calendar-category-visual",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Public calendar shows calendar-category-legend with all 5 category swatches; located a colored day (seeded agenda), clicked it, calendar-event-detail with calendar-event-category badge appeared; month label remained stable/navigable."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "admin-login-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: wrong password rejected with error toast; correct super admin credentials opened dashboard."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "admin-cms-crud",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: created/edited/unpublished/deleted a news item, visible on public site while published."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "admin-leads-followup",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: lead status changes to follow_up then done persisted across reloads."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "admin-mobile-dashboard",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: mobile drawer nav, gallery CRUD at 390px, logout clears session."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "academic-calendar-interactive",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Updated check (old assertion hardcoded the pre-category single blue class bg-[#0f4c81], now obsolete since agenda days render per-category colors ujian/kegiatan/industri/etc). New generic color-detection logic passed: month nav works, event detail + reminder link (calendar.google.com) shown."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "mobile-nav-cta",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: mobile bottom actions and hamburger nav still functional, no overflow."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-home-hero-metrics",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: hero/identity/PPDB CTA/metrics visible."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-anchor-navigation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: anchor links scroll to all sections."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-major-tabs",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: major tab switching updates selected title."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-profile-video-modal",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: video modal opens/closes with YouTube iframe."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-cbt-portal-link",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: CBT link visible with expected href."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-desktop-usable",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted strict-console check at 1280x720: no overflow, no console errors."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-ppdb-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: PPDB modal submit shows success toast."
+    },
+    {
+      "criterion": "Auth dan CMS sebelumnya tetap berfungsi",
+      "name": "school-contact-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check: contact form submit shows success toast."
+    }
+  ],
+  "notes": "Matrix has 8 criteria (some UI+API), covered with 12 backend tests across 6 files and 8 new browser checks, plus 12 regression browser checks re-run (existing suite from iteration 3). Total 24 backend tests (all files) pass; all 20 browser checks pass. academic-calendar-interactive check was updated (not app code) because its old hardcoded color-class assertion was made obsolete by the new intentional multi-category color scheme."
+}
