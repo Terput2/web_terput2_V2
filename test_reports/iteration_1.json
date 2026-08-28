@@ -1,0 +1,72 @@
+{
+  "passed": 7,
+  "failed": 1,
+  "bugs": [
+    {
+      "severity": "medium",
+      "evidence": "Browser check school-anchor-navigation failed because getByTestId('nav-link-galeri') was not found while verifying the required Galeri anchor. Failure screenshot: /root/.emergent/automation_output/20260828_063507_062/school-anchor-navigation-failure.png. Frontend source defines navItems for Beranda, Profil, Jurusan, Fasilitas, Agenda, and Kontak but omits Galeri. Backend cross-check is healthy: GET http://localhost:8001/api/ returned 200 with {\"message\":\"Hello World\"}."
+    }
+  ],
+  "action_items": [
+    "Add a Galeri navigation item targeting #galeri (and mobile equivalent if applicable), then rerun school-anchor-navigation."
+  ],
+  "retest_needed": true,
+  "checks": [
+    {
+      "criterion": "Beranda sekolah tampil dengan identitas SMK Teratai Putih Global 2 Bekasi, hero, CTA PPDB, dan metrik utama",
+      "name": "school-home-hero-metrics",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Hero heading, school identity, PPDB CTA, and 94% metric were visible at desktop width; screenshot captured."
+    },
+    {
+      "criterion": "Navigasi anchored menuju Profil, Jurusan, Fasilitas, Agenda, Galeri, dan Kontak berfungsi",
+      "name": "school-anchor-navigation",
+      "lane": "browser",
+      "status": "failed",
+      "evidence": "Profile, Jurusan, Fasilitas, and Agenda anchor clicks scrolled successfully, but required nav-link-galeri was absent; failure screenshot captured."
+    },
+    {
+      "criterion": "Pengunjung dapat berpindah di antara lima program keahlian",
+      "name": "school-major-tabs",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "DKV, BD, MP, AKL, and RPL tab clicks each changed selected-major-title to the expected program."
+    },
+    {
+      "criterion": "Alur PPDB dapat dibuka dan dikirim",
+      "name": "school-ppdb-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PPDB modal opened, form accepted student/program/WhatsApp values, closed on submit, and displayed success toast."
+    },
+    {
+      "criterion": "Video profil sekolah dapat dibuka",
+      "name": "school-profile-video-modal",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Profile video modal opened with the expected YouTube iframe src and closed successfully."
+    },
+    {
+      "criterion": "Agenda menyediakan akses ke portal CBT",
+      "name": "school-cbt-portal-link",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "CBT portal link was visible from Agenda and had href https://ujiango.smk-terataiputih2.sch.id/."
+    },
+    {
+      "criterion": "Form kontak dapat dikirim",
+      "name": "school-contact-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Contact name, WhatsApp, and question fields accepted values and submit displayed success toast."
+    },
+    {
+      "criterion": "Website tetap usable pada lebar desktop",
+      "name": "school-desktop-usable",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1280x720, hero and footer were visible, document had no horizontal overflow, and strict-console check passed."
+    }
+  ]
+}

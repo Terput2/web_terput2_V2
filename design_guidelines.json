@@ -1,0 +1,239 @@
+{
+  "project_title": "SMK Teratai Putih Global 2 Bekasi - Modern Indonesian Vocational School Web Portal",
+  "app_type": "hybrid_fullstack",
+  "theme": "Light theme by default with elegant modern accents (Dark theme supported via high contrast indigo/slate tones)",
+  "emotional_archetype": "ARCHETYPE 1 & 4 FUSION: Modern Academic Authority & Creative Technological Optimism (Trustworthy Emerald & Deep Navy with Warm Gold/Amber Kinetic Accents)",
+  "school_identity": {
+    "name": "SMK Teratai Putih Global 2 Bekasi",
+    "tagline": "Sekolah Inspirasi Masa Depan yang Unggul, Terpercaya, dan Profesional",
+    "motto": "Masa Depan Cerah, Hidup Pun Indah",
+    "foundation": "Yayasan Teratai Putih Global",
+    "address": "Jl. Rajawali V Perumnas 1, Kayuringin Jaya, Kec. Bekasi Selatan, Kota Bekasi, Jawa Barat 17144",
+    "phone": "+62 813-9886-5871 (Bu Eni) / +62 857-7783-5093",
+    "email": "reportterput2@gmail.com",
+    "instagram": "@smkterput2.bekasi",
+    "youtube": "Teratai Putihdua",
+    "cbt_portal": "https://ujiango.smk-terataiputih2.sch.id/"
+  },
+  "color_palette": {
+    "primary": {
+      "hex": "#0F4C81",
+      "description": "Deep Royal Teratai Blue - gives prestige, authority, and institutional credibility",
+      "tw_class": "bg-[#0F4C81] text-white"
+    },
+    "primary_dark": {
+      "hex": "#0A3358",
+      "description": "Obsidian Deep Navy for headers, footers and high-contrast typography"
+    },
+    "secondary_accent": {
+      "hex": "#059669",
+      "description": "Emerald Green - representing growth, Islamic values of foundation & freshness",
+      "tw_class": "text-emerald-600 bg-emerald-50"
+    },
+    "warm_accent": {
+      "hex": "#D97706",
+      "description": "Amber Gold - inspiration, student energy, achievement badges & highlight borders"
+    },
+    "neutral_bg": {
+      "hex": "#F8FAFC",
+      "description": "Crisp slate 50 paper background with 1px geometric borders",
+      "tw_class": "bg-slate-50 text-slate-900"
+    },
+    "surface_cards": {
+      "hex": "#FFFFFF",
+      "description": "Pure white cards with 1px border border-slate-200/80 and soft directional shadows"
+    }
+  },
+  "typography": {
+    "heading_font": "Plus Jakarta Sans / Outfit / Sora",
+    "body_font": "Plus Jakarta Sans / DM Sans",
+    "mono_font": "JetBrains Mono / IBM Plex Mono",
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900",
+      "h3": "text-xl sm:text-2xl font-semibold tracking-tight text-slate-800",
+      "h4": "text-lg sm:text-xl font-medium text-slate-800",
+      "body": "text-base text-slate-600 leading-relaxed",
+      "overline": "text-xs uppercase font-bold tracking-[0.2em] text-emerald-600"
+    }
+  },
+  "navigation_structure": [
+    { "name": "Beranda", "href": "#beranda", "testId": "nav-link-beranda" },
+    { "name": "Profil Sekolah", "href": "#profil", "testId": "nav-link-profil" },
+    { "name": "Program Keahlian (Jurusan)", "href": "#jurusan", "testId": "nav-link-jurusan" },
+    { "name": "Fasilitas & Lab", "href": "#fasilitas", "testId": "nav-link-fasilitas" },
+    { "name": "Agenda & Berita", "href": "#berita", "testId": "nav-link-berita" },
+    { "name": "Galeri", "href": "#galeri", "testId": "nav-link-galeri" },
+    { "name": "Kontak & Lokasi", "href": "#kontak", "testId": "nav-link-kontak" },
+    { "name": "PPDB Online", "href": "#ppdb-modal", "cta": true, "testId": "nav-cta-ppdb" }
+  ],
+  "majors_data": [
+    {
+      "code": "RPL",
+      "name": "Rekayasa Perangkat Lunak",
+      "badge": "Software Engineering",
+      "tagline": "Membangun Aplikasi Modern, Web, Mobile, & Cloud Tech",
+      "skills": ["Web Development (React, Node)", "Mobile Apps (Flutter/Android)", "Database Design", "UI/UX & Git Version Control"],
+      "careers": ["Junior Software Engineer", "Frontend/Backend Dev", "QA Tester", "Tech Entrepreneur"],
+      "image": "https://images.unsplash.com/photo-1556636530-6b7482d80e3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHx2b2NhdGlvbmFsJTIwc2Nob29sJTIwY29tcHV0ZXIlMjBsYWIlMjBzb2Z0d2FyZSUyMHByb2dyYW1taW5nJTIwY29kaW5nJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+      "icon": "Code2",
+      "accent": "blue"
+    },
+    {
+      "code": "DKV",
+      "name": "Desain Komunikasi Visual",
+      "badge": "Visual Communication Design",
+      "tagline": "Kreativitas Visual, Animasi, Branding & Digital Illustration",
+      "skills": ["Adobe Creative Cloud", "Branding & Typography", "Video Editing & Motion Graphics", "3D Modeling & Digital Photography"],
+      "careers": ["Graphic Designer", "Video Editor & Animator", "Social Media Content Creator", "Brand Strategist"],
+      "image": "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxncmFwaGljJTIwZGVzaWduJTIwZGlnaXRhbCUyMGFydCUyMGNyZWF0aXZlJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+      "icon": "Palette",
+      "accent": "purple"
+    },
+    {
+      "code": "BD",
+      "name": "Bisnis Digital & Pemasaran",
+      "badge": "Digital Business",
+      "tagline": "Strategi E-Commerce, Digital Ads, dan Omni-Channel Marketplace",
+      "skills": ["E-Commerce Operations", "Digital Marketing & SEO", "Live Streaming Commerce", "Customer Analytics"],
+      "careers": ["Digital Marketer", "E-Commerce Specialist", "Content Marketer", "Online Business Manager"],
+      "image": "https://images.unsplash.com/photo-1630331515839-dcf1de4e8d4d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHw0fHxpbmRvbmVzaWFuJTIwdm9jYXRpb25hbCUyMGhpZ2glMjBzY2hvb2wlMjBzdHVkZW50cyUyMHZvY2F0aW9uYWwlMjBsYWIlMjBlZHVjYXRpb258ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+      "icon": "TrendingUp",
+      "accent": "emerald"
+    },
+    {
+      "code": "MP",
+      "name": "Manajemen Perkantoran & Layanan Bisnis",
+      "badge": "Office Management",
+      "tagline": "Tata Kelola Perkantoran Modern, Kearsipan Digital, dan Administrasi Korporat",
+      "skills": ["Digital Archiving & Cloud Office", "Public Relations & Correspondence", "Modern Office Tools", "Financial Administration"],
+      "careers": ["Administrative Officer", "Executive Assistant", "Document Controller", "Customer Relationship Specialist"],
+      "image": "https://images.unsplash.com/photo-1719159381981-1327b22aff9b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHx2b2NhdGlvbmFsJTIwc2Nob29sJTIwY29tcHV0ZXIlMjBsYWIlMjBzb2Z0d2FyZSUyMHByb2dyYW1taW5nJTIwY29kaW5nJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+      "icon": "Briefcase",
+      "accent": "amber"
+    },
+    {
+      "code": "AKL",
+      "name": "Akuntansi dan Keuangan Lembaga",
+      "badge": "Financial Accounting",
+      "tagline": "Presisi Laporan Keuangan, Perpajakan, dan Audit Berbasis Software Akuntansi",
+      "skills": ["MYOB & Accurate Accounting", "Taxation (PPH & PPN)", "Financial Auditing", "Banking & Institutional Finance"],
+      "careers": ["Junior Accountant", "Tax Consultant Staff", "Auditor Assistant", "Banking Officer"],
+      "image": "https://images.unsplash.com/photo-1625111381887-458fce74a923?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxpbmRvbmVzaWFuJTIwdm9jYXRpb25hbCUyMGhpZ2glMjBzY2hvb2wlMjBzdHVkZW50cyUyMHZvY2F0aW9uYWwlMjBsYWIlMjBlZHVjYXRpb258ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+      "icon": "Calculator",
+      "accent": "teal"
+    }
+  ],
+  "facilities_data": [
+    { "name": "Laboratorium Rekayasa Perangkat Lunak (RPL)", "desc": "Dilengkapi PC High-Spec, Dual Monitor setups, server mini, dan jaringan fiber optik untuk praktik coding intensif." },
+    { "name": "Laboratorium Desain Komunikasi Visual (DKV)", "desc": "Studio kreatif dengan Drawing Tablet, PC rendering, Lighting Studio, dan perangkat fotografi profesional." },
+    { "name": "Laboratorium Bisnis Digital & BDP", "desc": "Ruang live broadcast e-commerce, display retail modern, dan simulator POS marketplace." },
+    { "name": "Laboratorium Manajemen Perkantoran (MP)", "desc": "Ruang simulasi kantor eksekutif lengkap dengan teleconference suite dan sistem filing modern." },
+    { "name": "Laboratorium Akuntansi & Perbankan", "desc": "Workstation software Accurate/MYOB dan bank mini untuk latihan transaksi keuangan riil." },
+    { "name": "Masjid Yayasan Teratai Putih", "desc": "Masjid megah pusat pembinaan akhlak mulia, sholat berjamaah, dan kegiatan keagamaan siswa." }
+  ],
+  "layout_sections": [
+    {
+      "id": "top-bar",
+      "type": "announcement-strip",
+      "content": "Penerimaan Peserta Didik Baru (PPDB) TA 2026/2027 Telah Dibuka! Dapatkan Beasiswa Prestasi & Potongan Gelombang 1."
+    },
+    {
+      "id": "header-navbar",
+      "type": "sticky-crystal-nav",
+      "description": "Sticky navigation with 90% opacity blurred backdrop, emblem logo, fast links with active indicator, Quick Contact WhatsApp badge, and PPDB Online primary CTA button."
+    },
+    {
+      "id": "hero-section",
+      "type": "split-asymmetric-hero",
+      "headline": "Mempersiapkan Generasi Emas yang Kompeten, Kreatif, & Siap Kerja Global",
+      "subheadline": "SMK Teratai Putih Global 2 Bekasi menghadirkan kurikulum berbasis industri 4.0, sertifikasi keahlian BNSP, serta kemitraan dengan 100+ perusahaan terkemuka.",
+      "quick_metrics": [
+        { "label": "Tingkat Serapan Kerja & Wirausaha", "value": "94%" },
+        { "label": "Jurusan Kejuruan Unggulan", "value": "5 Program" },
+        { "label": "Mitra Industri & Perusahaan", "value": "120+" },
+        { "label": "Sertifikasi Kompetensi BNSP", "value": "100% Lulusan" }
+      ]
+    },
+    {
+      "id": "sekapur-sirih-section",
+      "type": "editorial-quote-card",
+      "speaker": "Ketua Yayasan Teratai Putih Global",
+      "quote": "Pendidikan adalah harga mati untuk menjadi pondasi bangsa dan negara dalam menghadapi perkembangan zaman. Yayasan Teratai Putih Global senantiasa melakukan inovasi berkelanjutan demi mahakarya peradaban generasi masa depan."
+    },
+    {
+      "id": "programs-section",
+      "type": "interactive-tabbed-bento-grid",
+      "description": "Tabbed interactive exploration of 5 majors (RPL, DKV, Bisnis Digital, MP, Akuntansi) with career paths, core technologies, curriculum breakdown, and video/photo preview."
+    },
+    {
+      "id": "facilities-section",
+      "type": "visual-mosaic-grid",
+      "description": "Modern grid showcasing modern computer labs, studio DKV, live commerce studio, mini bank, and grand mosque."
+    },
+    {
+      "id": "student-stories-testimonials",
+      "type": "student-voice-carousel",
+      "testimonials": [
+        { "name": "Abbas Fuad", "role": "Alumni RPL 2024 (Junior Web Developer)", "comment": "Fasilitas lab di SMK Teratai Putih 2 sangat modern. Pengajar selalu membimbing sampai kami siap uji kompetensi industri dan langsung terserap kerja." },
+        { "name": "Rizky Pratama", "role": "Alumni DKV 2024 (Motion Graphic Designer)", "comment": "Pembelajaran sangat aplikatif dan seru. Portofolio karya dari sekolah mengantarkan saya langsung diterima di creative agency ternama di Jakarta." },
+        { "name": "Siti Nurhaliza", "role": "Alumni Bisnis Digital 2024 (Store Manager)", "comment": "Kurikulum bisnis digitalnya sangat relevan dengan tren e-commerce dan live selling masa kini." }
+      ]
+    },
+    {
+      "id": "agenda-news-section",
+      "type": "timeline-and-news-bento",
+      "events": [
+        { "title": "Ujian ASAT Genap TA 2025/2026", "date": "08 - 12 Juni 2026", "time": "08:00 WIB", "type": "Online CBT Exam", "link": "https://ujiango.smk-terataiputih2.sch.id/" },
+        { "title": "Pameran Karya Kreatif DKV & Expo RPL", "date": "20 Juni 2026", "time": "09:00 WIB", "type": "School Exhibition" },
+        { "title": "Job Fair & Campus Hiring SMK Teratai Putih 2", "date": "15 Juli 2026", "time": "08:30 WIB", "type": "Industry Placement" }
+      ]
+    },
+    {
+      "id": "gallery-section",
+      "type": "masonry-media-showcase",
+      "description": "Interactive filterable photo gallery covering: Kegiatan UKK, Ekstrakurikuler (Paskibra, Pramuka, Futsal, IT Club), Praktik Industri, dan Prestasi Siswa."
+    },
+    {
+      "id": "interactive-ppdb-calculator",
+      "type": "interactive-feature",
+      "description": "Interactive tuition & scholarship simulator allowing prospective parents to calculate estimated fees and get instant WhatsApp guidance."
+    },
+    {
+      "id": "contact-location-section",
+      "type": "contact-hub-with-interactive-map",
+      "description": "Full contact breakdown with direct WhatsApp buttons, Google Maps embed, interactive inquiry form with validation, and social handles."
+    },
+    {
+      "id": "footer",
+      "type": "institutional-rich-footer",
+      "description": "Dark slate footer with school identity, accreditation status (Terakreditasi A), fast links, department links, developer watermark, and copyright."
+    }
+  ],
+  "image_urls": {
+    "hero_banner": "https://images.unsplash.com/photo-1630331515839-dcf1de4e8d4d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHw0fHxpbmRvbmVzaWFuJTIwdm9jYXRpb25hbCUyMGhpZ2glMjBzY2hvb2wlMjBzdHVkZW50cyUyMHZvY2F0aW9uYWwlMjBsYWIlMjBlZHVjYXRpb258ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "students_study_group": "https://images.unsplash.com/photo-1625111381887-458fce74a923?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxpbmRvbmVzaWFuJTIwdm9jYXRpb25hbCUyMGhpZ2glMjBzY2hvb2wlMjBzdHVkZW50cyUyMHZvY2F0aW9uYWwlMjBsYWIlMjBlZHVjYXRpb258ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "students_lab_computer": "https://images.unsplash.com/photo-1719159381981-1327b22aff9b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHx2b2NhdGlvbmFsJTIwc2Nob29sJTIwY29tcHV0ZXIlMjBsYWIlMjBzb2Z0d2FyZSUyMHByb2dyYW1taW5nJTIwY29kaW5nJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "students_software_dev": "https://images.unsplash.com/photo-1556636530-6b7482d80e3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHx2b2NhdGlvbmFsJTIwc2Nob29sJTIwY29tcHV0ZXIlMjBsYWIlMjBzb2Z0d2FyZSUyMHByb2dyYW1taW5nJTIwY29kaW5nJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "creative_design_studio": "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxncmFwaGljJTIwZGVzaWduJTIwZGlnaXRhbCUyMGFydCUyMGNyZWF0aXZlJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "digital_art_workstation": "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwZGVzaWduJTIwZGlnaXRhbCUyMGFydCUyMGNyZWF0aXZlJTIwc3R1ZGVudHN8ZW58MHx8fHwxNzg3ODk4MzYwfDA&ixlib=rb-4.1.0&q=85",
+    "original_masjid_photo": "https://www.smk-terataiputih2.sch.id/img-promosi/gallery/Wh40.jpeg",
+    "youtube_profile_video_id": "DtyvJvqRdpY"
+  },
+  "instructions_to_main_agent": [
+    "1. Read all sections in design_guidelines.json and follow the layout hierarchy strictly.",
+    "2. Maintain strict data-testid attributes on all buttons, links, inputs, and interactive tabs.",
+    "3. Implement smooth tab switching between all 5 majors (RPL, DKV, Bisnis Digital, MP, AKL) with rich curriculum & job prospects details.",
+    "4. Include interactive PPDB registration modal or calculator that allows prospective students to submit a test registration / inquiry with Sonner toast feedback.",
+    "5. Include CBT link button pointing to https://ujiango.smk-terataiputih2.sch.id/ in the Agenda and Header shortcuts.",
+    "6. Include direct WhatsApp chat triggers to +6281398865871 and +6285777835093 with prefilled friendly Indonesian greeting text.",
+    "7. Include YouTube embed modal or responsive video player for the official profile video (ID: DtyvJvqRdpY).",
+    "8. Ensure the website has Indonesian language as primary with modern, polished grammar and high-trust academic presentation."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Ensure high contrast ratios: Dark blue and slate headers with crisp white text, white cards on slate-50 backgrounds.",
+    "Do NOT use generic blank placeholders; use curated images provided in image_urls.",
+    "Ensure all dialogs, select dropdowns, and tabs have solid backgrounds without see-through refractions.",
+    "Add generous padding (py-16 to py-24 per section) to ensure content breathes naturally on mobile and desktop."
+  ]
+}

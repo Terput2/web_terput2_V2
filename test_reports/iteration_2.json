@@ -1,0 +1,65 @@
+{
+  "passed": 8,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Beranda sekolah tampil dengan identitas SMK Teratai Putih Global 2 Bekasi, hero, CTA PPDB, dan metrik utama",
+      "name": "school-home-hero-metrics",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: school shell, school identity, hero heading, PPDB CTA, hero metrics, and 94% metric were visible; screenshot captured."
+    },
+    {
+      "criterion": "Navigasi anchored menuju Profil, Jurusan, Fasilitas, Agenda, Galeri, dan Kontak berfungsi",
+      "name": "school-anchor-navigation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: Profil, Jurusan, Fasilitas, Agenda, Galeri, and Kontak links reached visible target sections within the viewport; screenshot captured."
+    },
+    {
+      "criterion": "Pengunjung dapat berpindah di antara lima program keahlian",
+      "name": "school-major-tabs",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: DKV, BD, MP, AKL, and RPL tab clicks changed the selected program title and panel; screenshot captured."
+    },
+    {
+      "criterion": "Alur PPDB dapat dibuka dan dikirim",
+      "name": "school-ppdb-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: PPDB modal opened, form submission closed the modal, and success toast appeared; screenshot captured."
+    },
+    {
+      "criterion": "Video profil sekolah dapat dibuka",
+      "name": "school-profile-video-modal",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: profile video modal opened with the expected YouTube iframe and closed successfully; screenshot captured."
+    },
+    {
+      "criterion": "Agenda menyediakan akses ke portal CBT",
+      "name": "school-cbt-portal-link",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: Agenda exposed the CBT portal link with href https://ujiango.smk-terataiputih2.sch.id/."
+    },
+    {
+      "criterion": "Form kontak dapat dikirim",
+      "name": "school-contact-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted browser check passed: contact name, WhatsApp, and question fields accepted input and submit displayed success toast; screenshot captured."
+    },
+    {
+      "criterion": "Website tetap usable pada lebar desktop",
+      "name": "school-desktop-usable",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Persisted strict-console browser check passed at 1280x720: hero/footer visible, no horizontal overflow, and no console errors detected."
+    }
+  ]
+}

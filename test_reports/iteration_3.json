@@ -1,0 +1,149 @@
+{
+  "passed": 20,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Admin CMS diamankan dengan login email/password dan session cookie",
+      "name": "test_tscheck_admin_auth.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /auth/login valid -> 200 + school_admin_session cookie; GET /auth/me -> 200; GET /admin/leads -> 200. POST /auth/login wrong password -> 401. GET /admin/leads and /admin/content/news without cookie -> 401."
+    },
+    {
+      "criterion": "Admin CMS diamankan dengan login email/password dan session cookie",
+      "name": "admin-login-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Wrong password kept admin-login-page visible with error toast; correct credentials opened admin-dashboard with admin-leads-heading visible. Screenshot captured."
+    },
+    {
+      "criterion": "Admin dapat mengelola berita, agenda, galeri, dan jurusan tanpa mengubah kode",
+      "name": "test_tscheck_cms_crud.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Parametrized over news/agenda/gallery/major: POST /admin/content -> 201, PATCH /admin/content/{id} (title+is_published) -> 200, GET /admin/content/{resource} lists it, DELETE -> 200 and item absent afterwards. POST /admin/content without session -> 401."
+    },
+    {
+      "criterion": "Admin dapat mengelola berita, agenda, galeri, dan jurusan tanpa mengubah kode",
+      "name": "admin-cms-crud",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Created tscheck-news-* item via admin editor, verified it appeared on public agenda section, edited title+unpublished, then deleted it; all steps reflected in UI (4 screenshots)."
+    },
+    {
+      "criterion": "Konten yang diterbitkan dari CMS tampil di website publik",
+      "name": "test_tscheck_public_content.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /content/gallery after creating one published + one unpublished tscheck item returned only the published id; is_published true for every returned row."
+    },
+    {
+      "criterion": "Konten yang diterbitkan dari CMS tampil di website publik",
+      "name": "admin-cms-crud",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Same admin-cms-crud check: newly created published news item was visible on the public agenda section after navigating to '/', confirming CMS-to-public visibility."
+    },
+    {
+      "criterion": "PPDB dan pertanyaan kontak tersimpan di MongoDB",
+      "name": "test_tscheck_leads.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /leads kind=ppdb -> 201 with status new; POST /leads kind=contact with question -> 201; both then found via GET /admin/leads by their created id after admin login."
+    },
+    {
+      "criterion": "PPDB dan pertanyaan kontak tersimpan di MongoDB",
+      "name": "school-ppdb-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PPDB modal opened from hero button, form submitted with tscheck-ppdb-regress name, modal closed and 'tersimpan' success toast appeared."
+    },
+    {
+      "criterion": "PPDB dan pertanyaan kontak tersimpan di MongoDB",
+      "name": "school-contact-submit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Contact form filled with tscheck-contact-regress name/phone/question, submit displayed 'tersimpan' success toast."
+    },
+    {
+      "criterion": "Admin dapat menindaklanjuti lead",
+      "name": "test_tscheck_lead_status.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "Created contact lead, PATCH /admin/leads/{id} status=follow_up -> 200, fresh GET /admin/leads shows follow_up; PATCH status=done -> 200, fresh GET shows done."
+    },
+    {
+      "criterion": "Admin dapat menindaklanjuti lead",
+      "name": "admin-leads-followup",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Submitted tscheck-lead-* via public contact form, located it in admin leads list at status 'new', changed to follow_up (persisted after page.reload), then to done (persisted after a second reload). Screenshots captured."
+    },
+    {
+      "criterion": "Kalender akademik interaktif berfungsi",
+      "name": "academic-calendar-interactive",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "calendar-month-label changed on next/previous month navigation and returned to original; clicked a day with an agenda dot, calendar-event-detail + calendar-event-title appeared; calendar-reminder-link href contained calendar.google.com."
+    },
+    {
+      "criterion": "Website publik mobile memiliki navigasi dan CTA yang ringkas",
+      "name": "mobile-nav-cta",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 390x844 no horizontal overflow (scrollWidth<=clientWidth+1); mobile-bottom-actions with WhatsApp (wa.me href) and PPDB CTA opened ppdb-modal; hamburger menu exposed Jurusan/Agenda/Kontak shortcuts and navigated to majors-section."
+    },
+    {
+      "criterion": "Dashboard admin usable di mobile dan logout aman",
+      "name": "admin-mobile-dashboard",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "admin-mobile-navigation drawer (unique admin-mobile-nav-* testids) opened, created+deleted a tscheck gallery item at 390px width, then admin-logout-button returned to admin-login-page; reload after logout stayed on login page confirming session was cleared."
+    },
+    {
+      "criterion": "Regression: public homepage identity/hero/PPDB CTA/metrics",
+      "name": "school-home-hero-metrics",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check; hero, identity, PPDB CTA, and metrics all visible."
+    },
+    {
+      "criterion": "Regression: anchored navigation to all sections",
+      "name": "school-anchor-navigation",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check; all anchor links scrolled to visible target sections."
+    },
+    {
+      "criterion": "Regression: switching between 5 majors",
+      "name": "school-major-tabs",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check; tab clicks changed selected-major-title."
+    },
+    {
+      "criterion": "Regression: profile video modal",
+      "name": "school-profile-video-modal",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check; modal opened with YouTube iframe and closed."
+    },
+    {
+      "criterion": "Regression: CBT portal link and desktop usability",
+      "name": "school-cbt-portal-link",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted check; CBT link visible with expected href."
+    },
+    {
+      "criterion": "Regression: desktop usability, no overflow, no console errors",
+      "name": "school-desktop-usable",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-ran persisted strict-console check at 1280x720; no overflow, no console errors."
+    }
+  ]
+}
